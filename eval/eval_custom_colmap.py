@@ -303,10 +303,13 @@ def main():
     images, original_coords = load_and_preprocess_images_downscale(
         image_path_list, new_width=vggt_fixed_resolution_width, new_height=vggt_fixed_resolution_height
     )
+    print(images[0].shape)
+    print(f"🔄 Loaded images...")
     original_coords = original_coords.to(device)
      # Load images
-    print(f"🔄 Loading images...")
-    images = load_images_rgb(image_path_list)
+    # print(f"🔄 Loading images...")
+    # images = load_images_rgb(image_path_list)
+    # print(images[0].shape)
 
     if not images or len(images) < 3:
         print(f"❌ Error: Not enough valid images (need at least 3)")

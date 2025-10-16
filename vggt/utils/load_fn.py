@@ -4,6 +4,7 @@
 # This source code is licensed under the license found in the
 # LICENSE file in the root directory of this source tree.
 
+import cv2
 import torch
 from PIL import Image
 from torchvision import transforms as TF
@@ -164,13 +165,9 @@ def load_and_preprocess_images_downscale(image_path_list, new_width=518, new_hei
         downsampled_img = downsampled_img.resize(
             (new_width, new_height), Image.Resampling.BICUBIC
         )
-
-        # Convert to tensor
-        img_tensor = to_tensor(downsampled_img)
-        images.append(img_tensor)
-
-    # Stack all images
-    images = torch.stack(images)
+        downsampled_img = cv2.cvtColor(np.array(downsampled_img), cv2.COLOR_RGB2BGR)
+        images.append(downsampled_img)
+ 
     original_coords = torch.from_numpy(np.array(original_coords)).float()
 
     # Add additional dimension if single image to ensure correct shape
