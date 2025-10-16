@@ -306,10 +306,6 @@ def main():
     print(images[0].shape)
     print(f"🔄 Loaded images...")
     original_coords = original_coords.to(device)
-     # Load images
-    # print(f"🔄 Loading images...")
-    # images = load_images_rgb(image_path_list)
-    # print(images[0].shape)
 
     if not images or len(images) < 3:
         print(f"❌ Error: Not enough valid images (need at least 3)")
