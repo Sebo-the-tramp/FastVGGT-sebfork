@@ -245,7 +245,7 @@ def parse_args():
     parser.add_argument(
         "--max_points",
         type=int,
-        default=100000,
+        default=2000000,
         help="Max number of 3D points to keep when exporting",
     )
     parser.add_argument(
@@ -275,7 +275,7 @@ def main():
     print(f"Using device: {device}")
     print(f"Using dtype: {dtype}")
 
-    images_dir = args.data_path / "images"
+    images_dir = args.data_path / "images_4"
     if not images_dir.exists():
         print(f"❌ images directory not found: {images_dir}")
         return
@@ -306,6 +306,10 @@ def main():
     print(images[0].shape)
     print(f"🔄 Loaded images...")
     original_coords = original_coords.to(device)
+     # Load images
+    # print(f"🔄 Loading images...")
+    # images = load_images_rgb(image_path_list)
+    # print(images[0].shape)
 
     if not images or len(images) < 3:
         print(f"❌ Error: Not enough valid images (need at least 3)")
@@ -372,7 +376,7 @@ def main():
     )
 
     # Save
-    sparse_dir = args.output_path / "sparse"
+    sparse_dir = args.output_path / "sparse_vggt" / "0"
     sparse_dir.mkdir(parents=True, exist_ok=True)
     print(f"💾 Saving reconstruction to {sparse_dir}")
     reconstruction.write(str(sparse_dir))
@@ -380,7 +384,7 @@ def main():
     # Also prepare images directory next to sparse for direct COLMAP import (copy only)
     if args.save_images:
         try:
-            images_out_dir = args.output_path / "images"
+            images_out_dir = args.output_path / "images_4"
             images_out_dir.mkdir(parents=True, exist_ok=True)
             import shutil
 
